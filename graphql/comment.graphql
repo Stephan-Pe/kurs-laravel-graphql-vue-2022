@@ -1,0 +1,12 @@
+type Comment {
+    id: ID!
+    title: String!
+    nickname: String!
+    body: String
+    post_id: ID!
+    
+}
+
+extend type Query {
+    comments: [Comment!]! @all
+}
