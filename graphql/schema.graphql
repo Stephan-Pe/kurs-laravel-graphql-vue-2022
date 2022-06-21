@@ -18,6 +18,8 @@ type Query {
       name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
 
+    me: User @auth
+
 }
 
 "Account of a person who utilizes this application."
@@ -40,10 +42,17 @@ type User {
     "When the account was last updated."
     updated_at: DateTime!
 
-    # posts: [Post!]! @hasMany
-    posts(category: String @eq): [Post!]! @hasMany
+    posts: [Post!]! @hasMany
+    #posts(category: String @eq): [Post!]! @hasMany
 }
 
+type Mutation {
+  postCreate(
+    user_id: Int
+    title: String
+    body: String
+  ): Post! @create
+}
 
 #import post.graphql
 

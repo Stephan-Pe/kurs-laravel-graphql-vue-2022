@@ -3,8 +3,10 @@ type Comment {
     title: String!
     nickname: String!
     body: String
-    post_id: ID!
-    
+    post_id: Int
+    post: Post
+    created_at: DateTime!
+    updated_at: DateTime!
 }
 
 extend type Query {

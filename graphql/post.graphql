@@ -3,10 +3,13 @@ type Post {
     title: String!
     body: String!
     user_id: User @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+    comments(category: String @eq): [Comment!]! @hasMany
 }
 
 extend type Query {
-  posts: [Post!]! @all
+  posts: [Post!]! @all @guard
   #@eq equal operator
   post(id: ID! @eq): Post @find
 }
