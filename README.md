@@ -30,6 +30,9 @@ alias pammodel="php artisan make:model"
 alias pamigrate="php artisan migrate"
 
 ```
+pa make:policy UserPolicy --model=User
+
+pa lighthouse:query Test --full
 
 
 

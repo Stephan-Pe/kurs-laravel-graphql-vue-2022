@@ -16,10 +16,18 @@ type Query {
     users(
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
-    ): [User!]! @paginate(defaultCount: 10)
+    ): [User!]!  @paginate(defaultCount: 10) @guard @can(ability: "viewAny")
 
     me: User @auth
 
+    test(
+      name: String
+    ): Test
+
+}
+
+type Test{
+  answer: String
 }
 
 "Account of a person who utilizes this application."
@@ -46,13 +54,9 @@ type User {
     #posts(category: String @eq): [Post!]! @hasMany
 }
 
-type Mutation {
-  postCreate(
-    user_id: Int
-    title: String
-    body: String
-  ): Post! @create
-}
+type Mutation
+
+
 
 #import post.graphql
 

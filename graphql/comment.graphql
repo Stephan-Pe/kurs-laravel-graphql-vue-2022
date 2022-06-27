@@ -10,5 +10,26 @@ type Comment {
 }
 
 extend type Query {
-    comments: [Comment!]! @all
+    comments: [Comment!]! @all @guard
+    comment(id: ID! @eq): Comment @find @guard
+}
+
+extend type Mutation {
+    commentCreate(
+        title: String!
+        nickname: String!
+        body: String!
+        post_id: Int
+
+    ): Comment @create @guard
+    commentUpdate(
+        id: Int!
+        title: String
+        nickname: String
+        body: String
+
+    ): Comment @update @guard
+    commentDelete(
+        id: ID!
+    ): Comment @delete @guard
 }

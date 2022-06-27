@@ -2,14 +2,37 @@ type Post {
     id: ID!
     title: String!
     body: String!
-    user_id: User @belongsTo
+    user_id: Int
+    user: User
+    comments: [Comment]
+    comment_count: Int
     created_at: DateTime!
     updated_at: DateTime!
-    comments(category: String @eq): [Comment!]! @hasMany
+   
 }
 
 extend type Query {
-  posts: [Post!]! @all @guard
+  posts: [Post!]! @all 
   #@eq equal operator
-  post(id: ID! @eq): Post @find
+  post(id: ID! @eq): Post @find @guard
 }
+
+extend type Mutation {
+  postCreate(
+    user_id: Int
+    title: String
+    body: String
+  ): Post! @create @guard
+
+  postUpdate(
+    id: ID!
+    user_id: Int
+    title: String
+    body: String
+  ): Post! @update @guard
+
+  postDelete(
+    id: ID!
+  ): Post @delete @guard
+}
+
